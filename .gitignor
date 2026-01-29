@@ -1,0 +1,37 @@
+# Go
+bin/
+vendor/
+*.exe
+*.test
+*.prof
+coverage.out
+coverage.html
+
+# Data
+data/
+backup-*.tar.gz
+
+# DB
+*.db
+
+# Logs
+*.log
+logs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+.dockerignore
+
+# Config
+config.local.json
+cert.pem
+key.pem
