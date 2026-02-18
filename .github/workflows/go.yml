@@ -30,7 +30,7 @@ jobs:
 
     - uses: golangci/golangci-lint-action@v3
     - name: Vet
-      run: go vet ./..
+      run: go vet ./...
 
   deploy: # Второй job для деплоя
 
