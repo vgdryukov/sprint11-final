@@ -11,9 +11,6 @@ coverage.html
 data/
 backup-*.tar.gz
 
-# DB
-*.db
-
 # Logs
 *.log
 logs/
