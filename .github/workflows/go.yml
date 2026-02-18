@@ -15,18 +15,6 @@ jobs:
 
     - uses: actions/checkout@v4
     - uses: actions/setup-go@v4
-
-    - name: Setup test database
-      run: |
-        sqlite3 tracker.db "CREATE TABLE IF NOT EXISTS parcel (
-          number INTEGER PRIMARY KEY AUTOINCREMENT,
-          client INTEGER NOT NULL,
-          status TEXT NOT NULL,
-          address TEXT NOT NULL,
-          created_at TEXT NOT NULL
-        );"
-        # Проверяем, что таблица создалась
-        sqlite3 tracker.db ".tables"
     
     - name: Install SQLite (if not present)
       run: sudo apt-get update && sudo apt-get install -y sqlite3
