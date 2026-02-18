@@ -24,7 +24,7 @@ func createTable(db *sql.DB) error {
 		address TEXT NOT NULL,
 		created_at TEXT NOT NULL
 	);`
-
+	
 	_, err := db.Exec(createTableSQL)
 	return err
 }
@@ -39,21 +39,22 @@ func clearTable(db *sql.DB) error {
 func setupTestDB(t *testing.T) (*sql.DB, func()) {
 	db, err := sql.Open("sqlite", "file:test.db?cache=shared&mode=memory")
 	require.NoError(t, err)
-
+	
 	// Создаём таблицу
 	err = createTable(db)
 	require.NoError(t, err)
-
+	
 	// Очищаем таблицу перед тестом
 	err = clearTable(db)
 	require.NoError(t, err)
-
+	
 	// Возвращаем функцию для очистки и закрытия
 	cleanup := func() {
-		clearTable(db) // Игнорируем ошибку при очистке
+		// Очищаем таблицу после теста
+		_ = clearTable(db) // Игнорируем ошибку при очистке, так как это cleanup
 		db.Close()
 	}
-
+	
 	return db, cleanup
 }
 
@@ -69,7 +70,7 @@ func getTestParcel() Parcel {
 func TestAddGetDelete(t *testing.T) {
 	db, cleanup := setupTestDB(t)
 	defer cleanup()
-
+	
 	store := NewParcelStore(db)
 	parcel := getTestParcel()
 
@@ -96,7 +97,7 @@ func TestAddGetDelete(t *testing.T) {
 func TestSetAddress(t *testing.T) {
 	db, cleanup := setupTestDB(t)
 	defer cleanup()
-
+	
 	store := NewParcelStore(db)
 	parcel := getTestParcel()
 
@@ -120,7 +121,7 @@ func TestSetAddress(t *testing.T) {
 func TestSetStatus(t *testing.T) {
 	db, cleanup := setupTestDB(t)
 	defer cleanup()
-
+	
 	store := NewParcelStore(db)
 	parcel := getTestParcel()
 
@@ -143,7 +144,7 @@ func TestSetStatus(t *testing.T) {
 func TestGetByClient(t *testing.T) {
 	db, cleanup := setupTestDB(t)
 	defer cleanup()
-
+	
 	store := NewParcelStore(db)
 
 	parcels := []Parcel{
