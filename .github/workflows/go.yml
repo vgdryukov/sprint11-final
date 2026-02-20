@@ -50,6 +50,12 @@ jobs:
 
     steps:
 
+    - name: Debug condition
+      run: |
+        echo "github.ref: ${{ github.ref }}"
+        echo "startsWith: ${{ startsWith(github.ref, 'refs/tags/') }}"
+        echo "Should run: ${{ startsWith(github.ref, 'refs/tags/') == true }}"
+  
     - name: Checkout
       uses: actions/checkout@v4
 
